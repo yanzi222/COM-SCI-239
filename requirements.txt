@@ -1,0 +1,21 @@
+# CS239 Graduate Student Affairs — Python 3.11+
+# Install: pip install -r requirements.txt
+
+# A2A agent-to-agent protocol
+a2a-sdk[http-server]==1.2.3
+
+# MCP model context protocol (tool server)
+mcp==2.3.0
+
+# OpenAI-compatible API client (SiliconFlow Advisor Agent LLM)
+openai>=1.0.0
+
+# HTTP client (A2A transport)
+httpx>=0.28.1
+
+# ASGI server (Policy Checker service)
+uvicorn>=0.54.0
+starlette>=1.0.0
+
+# Data validation
+pydantic>=2.0.0

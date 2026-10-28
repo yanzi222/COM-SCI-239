@@ -1,0 +1,154 @@
+{
+  "session_id": "b979463c",
+  "student_id": "S001",
+  "student_request": "Hi, I need to add CS229 (Machine Learning) late. I missed the enrollment deadline because I was hospitalized for a week. My student ID is S001.",
+  "agent": "AdvisorAgent",
+  "mcp_server": "src.tools.student_db",
+  "a2a_policy_checker": "http://127.0.0.1:9001",
+  "started_at": 1793147116.7407815,
+  "steps": [
+    {
+      "step": 1,
+      "type": "user_request",
+      "role": "student",
+      "content": "Hi, I need to add CS229 (Machine Learning) late. I missed the enrollment deadline because I was hospitalized for a week. My student ID is S001.",
+      "t": 0.0
+    },
+    {
+      "step": 2,
+      "type": "mcp_connect",
+      "role": "mcp_connect",
+      "content": {
+        "server": "src.tools.student_db",
+        "transport": "MCP / stdio",
+        "tools_discovered": [
+          "check_candidacy",
+          "check_funding_status",
+          "get_course_info",
+          "get_student_record"
+        ],
+        "delegate_tool": "delegate_to_policy_checker (OpenAI tool_use)"
+      },
+      "t": 2.203
+    },
+    {
+      "step": 3,
+      "type": "tool_call",
+      "role": "advisor",
+      "content": {
+        "tool": "get_student_record",
+        "input": {
+          "student_id": "S001"
+        },
+        "via": "MCP / stdio"
+      },
+      "t": 76.668
+    },
+    {
+      "step": 4,
+      "type": "tool_result",
+      "role": "tool_result",
+      "content": {
+        "tool": "get_student_record",
+        "result": {
+          "student_id": "S001",
+          "gpa": 3.8,
+          "units_completed": 36,
+          "standing": "good",
+          "year_in_program": 2,
+          "extension_count_this_term": 0,
+          "advanced_to_candidacy": false,
+          "funding_category": "fellowship"
+        }
+      },
+      "t": 76.668
+    },
+    {
+      "step": 5,
+      "type": "tool_call",
+      "role": "advisor",
+      "content": {
+        "tool": "get_course_info",
+        "input": {
+          "course_id": "CS229"
+        },
+        "via": "MCP / stdio"
+      },
+      "t": 76.672
+    },
+    {
+      "step": 6,
+      "type": "tool_result",
+      "role": "tool_result",
+      "content": {
+        "tool": "get_course_info",
+        "result": {
+          "course_id": "CS229",
+          "name": "Machine Learning",
+          "instructor": "Dr. Park",
+          "capacity": 30,
+          "enrolled": 28
+        }
+      },
+      "t": 76.673
+    },
+    {
+      "step": 7,
+      "type": "a2a_send",
+      "role": "advisor\u2192policy_checker",
+      "content": {
+        "to": "http://127.0.0.1:9001",
+        "protocol": "A2A / JSONRPC",
+        "payload": {
+          "petition_type": "course_add",
+          "gpa": 3.8,
+          "units_completed": 36,
+          "standing": "good",
+          "reason_category": "medical",
+          "course_id": "CS229",
+          "candidacy_status": {
+            "advanced": false,
+            "year_in_program": 2
+          }
+        },
+        "prohibited_fields_stripped": []
+      },
+      "t": 89.236
+    },
+    {
+      "step": 8,
+      "type": "a2a_receive",
+      "role": "policy_checker\u2192advisor",
+      "content": {
+        "decision": "approved",
+        "rationale": "Late add approved on medical grounds.",
+        "conditions": [
+          "Attend all remaining sessions.",
+          "Instructor must be notified."
+        ],
+        "triggered_rule": "POLICY-PETITION-004"
+      },
+      "t": 89.294
+    },
+    {
+      "step": 9,
+      "type": "thought",
+      "role": "advisor",
+      "content": "Your late add petition for **CS229 (Machine Learning)** has been **approved** on medical grounds. \ud83c\udf89  \n\n**Next Steps:**  \n1. Ensure you attend all remaining sessions for the course.  \n2. Notify the instructor, Dr. Park, promptly to confirm your enrollment.  \n\nWe understand the challenges of your hospitalization and are glad to support your academic progress. If you need help with anything else, feel free to ask. Good luck with the course!  \n\n<support-contact>  \nGraduate Student Affairs Office | [Email/Phone]  \n</support-contact>",
+      "t": 194.125
+    },
+    {
+      "step": 10,
+      "type": "final_response",
+      "role": "advisor",
+      "content": "Your late add petition for **CS229 (Machine Learning)** has been **approved** on medical grounds. \ud83c\udf89  \n\n**Next Steps:**  \n1. Ensure you attend all remaining sessions for the course.  \n2. Notify the instructor, Dr. Park, promptly to confirm your enrollment.  \n\nWe understand the challenges of your hospitalization and are glad to support your academic progress. If you need help with anything else, feel free to ask. Good luck with the course!  \n\n<support-contact>  \nGraduate Student Affairs Office | [Email/Phone]  \n</support-contact>",
+      "t": 194.125
+    }
+  ],
+  "final_response": "Your late add petition for **CS229 (Machine Learning)** has been **approved** on medical grounds. \ud83c\udf89  \n\n**Next Steps:**  \n1. Ensure you attend all remaining sessions for the course.  \n2. Notify the instructor, Dr. Park, promptly to confirm your enrollment.  \n\nWe understand the challenges of your hospitalization and are glad to support your academic progress. If you need help with anything else, feel free to ask. Good luck with the course!  \n\n<support-contact>  \nGraduate Student Affairs Office | [Email/Phone]  \n</support-contact>",
+  "scenario": {
+    "name": "trace_01_course_petition",
+    "description": "Student S001 (good standing, year 2) requests a late add of CS229 for medical reasons.",
+    "expected_policy": "POLICY-PETITION-004"
+  }
+}
